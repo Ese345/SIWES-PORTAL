@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Student
+  IndustrySupervisor
+  SchoolSupervisor
+  Admin
+}
+
+model LogbookEntry {
+  id          String   @id @default(uuid())
+  studentId   String
+  date        DateTime
+  description String
+  submitted   Boolean  @default(false)
+  imageUrl    String? // Optional field for image attachment
+
+  // Review fields
+  reviewedBy     String? // Supervisor who reviewed it
+  reviewedAt     DateTime? // When it was reviewed
+  reviewStatus   ReviewStatus? // PENDING, APPROVED, REJECTED
+  reviewComments String? // Supervisor's feedback
+
+  createdAt DateTime @default(now())
+  student   Student  @relation(fields: [studentId], references: [id])
+  reviewer  User?    @relation("LogbookReviewer", fields: [reviewedBy], references: [id])
+
+  @@index([studentId, date])
+  @@index([reviewedBy, reviewStatus])
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id                 String             @id @default(uuid())
+  name               String
+  email              String             @unique
+  passwordHash       String
+  role               Role
+  imageUrl           String?
+  isActive           Boolean            @default(true)
+  mustChangePassword Boolean            @default(false)
+  createdAt          DateTime           @default(now())
+  student            Student?
+  notifications      Notification[]
+  userNotifications  UserNotification[]
+  attendance         Attendance[]       @relation("SupervisorAttendance")
+  industryStudents   Student[]          @relation("IndustrySupervisorStudents")
+  schoolStudents     Student[]          @relation("SchoolSupervisorStudents")
+  reviewedLogbooks   LogbookEntry[]     @relation("LogbookReviewer") // Add this
+}
+
+model Student {
+  id                   String         @id
+  matricNumber         String         @unique
+  department           String
+  profile              String?
+  industrySupervisorId String?
+  schoolSupervisorId   String?
+  user                 User           @relation(fields: [id], references: [id])
+  industrySupervisor   User?          @relation("IndustrySupervisorStudents", fields: [industrySupervisorId], references: [id])
+  schoolSupervisor     User?          @relation("SchoolSupervisorStudents", fields: [schoolSupervisorId], references: [id])
+  logbookEntries       LogbookEntry[]
+  attendance           Attendance[]   @relation("StudentAttendance")
+
+  @@index([industrySupervisorId])
+  @@index([schoolSupervisorId])
+}
+
+model Attendance {
+  id           String   @id @default(uuid())
+  studentId    String
+  supervisorId String
+  date         DateTime
+  present      Boolean
+  notes        String? // Add this field for additional notes
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  student    Student @relation("StudentAttendance", fields: [studentId], references: [id])
+  supervisor User    @relation("SupervisorAttendance", fields: [supervisorId], references: [id])
+
+  @@unique([studentId, date])
+  @@index([supervisorId, date])
+}
+
+model ITFForm {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  fileUrl     String
+  uploadedAt  DateTime @default(now())
+}
+
+model Notification {
+  id      String           @id @default(uuid())
+  userId  String? // Made optional for broadcast notifications
+  title   String // Added title field
+  message String
+  type    NotificationType @default(INFO)
+  read    Boolean          @default(false)
+
+  // Admin notification fields
+  isSystemGenerated Boolean        @default(false) // true for logbook/attendance notifications
+  recipientType     RecipientType? // ALL, ROLE, INDIVIDUAL
+  recipientRole     Role? // When recipientType is ROLE
+  actionUrl         String? // Optional action URL
+  actionText        String? // Optional action button text
+  isActive          Boolean        @default(true)
+
+  // Metadata
+  createdBy String? // Admin user who created it
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user              User?              @relation(fields: [userId], references: [id])
+  userNotifications UserNotification[] // For tracking individual user notifications
+
+  @@index([userId, read])
+  @@index([recipientType, recipientRole])
+  @@index([isActive, createdAt])
+}
+
+// New junction table for user notifications
+model UserNotification {
+  id             String    @id @default(uuid())
+  userId         String
+  notificationId String
+  read           Boolean   @default(false)
+  readAt         DateTime?
+  createdAt      DateTime  @default(now())
+
+  user         User         @relation(fields: [userId], references: [id])
+  notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, notificationId])
+  @@index([userId, read])
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  ERROR
+}
+
+enum RecipientType {
+  ALL
+  ROLE
+  INDIVIDUAL
+}
+
+model BlacklistedToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([expiresAt])
+}

@@ -1,0 +1,43 @@
+email,name,role,department,matricNumber
+emma.johnson@gmail.com,Emma Johnson,Student,Computer Science,CU100001
+liam.williams@yahoo.com,Liam Williams,Student,Mechanical Engineering,CU100002
+olivia.brown@hotmail.com,Olivia Brown,Student,Electrical Engineering,CU100003
+noah.davis@gmail.com,Noah Davis,Student,Physics,CU100004
+ava.martin@gmail.com,Ava Martin,Student,Chemical Engineering,CU100005
+elijah.moore@yahoo.com,Elijah Moore,Student,Civil Engineering,CU100006
+sophia.taylor@hotmail.com,Sophia Taylor,Student,Computer Science,CU100007
+lucas.anderson@gmail.com,Lucas Anderson,Student,Mechanical Engineering,CU100008
+mia.thomas@yahoo.com,Mia Thomas,Student,Electrical Engineering,CU100009
+ethan.jackson@gmail.com,Ethan Jackson,Student,Computer Science,CU100010
+isabella.white@hotmail.com,Isabella White,Student,Physics,CU100011
+logan.harris@gmail.com,Logan Harris,Student,Civil Engineering,CU100012
+charlotte.martinez@yahoo.com,Charlotte Martinez,Student,Information Systems,CU100013
+james.thompson@gmail.com,James Thompson,Student,Mechanical Engineering,CU100014
+amelia.robinson@hotmail.com,Amelia Robinson,Student,Computer Science,CU100015
+benjamin.clark@gmail.com,Benjamin Clark,Student,Electrical Engineering,CU100016
+harper.rodriguez@yahoo.com,Harper Rodriguez,Student,Computer Science,CU100017
+jacob.lewis@gmail.com,Jacob Lewis,Student,Mechanical Engineering,CU100018
+evelyn.walker@hotmail.com,Evelyn Walker,Student,Physics,CU100019
+michael.hall@gmail.com,Michael Hall,Student,Chemical Engineering,CU100020
+abigail.allen@yahoo.com,Abigail Allen,Student,Civil Engineering,CU100021
+alexander.young@gmail.com,Alexander Young,Student,Electrical Engineering,CU100022
+ella.king@hotmail.com,Ella King,Student,Information Systems,CU100023
+daniel.wright@gmail.com,Daniel Wright,Student,Computer Science,CU100024
+grace.scott@yahoo.com,Grace Scott,Student,Mechanical Engineering,CU100025
+matthew.green@gmail.com,Matthew Green,Student,Physics,CU100026
+scarlett.adams@hotmail.com,Scarlett Adams,Student,Civil Engineering,CU100027
+henry.baker@gmail.com,Henry Baker,Student,Electrical Engineering,CU100028
+chloe.nelson@yahoo.com,Chloe Nelson,Student,Information Systems,CU100029
+sebastian.hill@gmail.com,Sebastian Hill,Student,Mechanical Engineering,CU100030
+victoria.campbell@hotmail.com,Victoria Campbell,Student,Computer Science,CU100031
+jack.mitchell@gmail.com,Jack Mitchell,Student,Physics,CU100032
+prof.morris@university.edu,Prof. Morris,SchoolSupervisor,,
+dr.hughes@university.edu,Dr. Hughes,SchoolSupervisor,,
+prof.turner@university.edu,Prof. Turner,SchoolSupervisor,,
+dr.ward@university.edu,Dr. Ward,SchoolSupervisor,,
+prof.wood@university.edu,Prof. Wood,SchoolSupervisor,,
+dr.bailey@university.edu,Dr. Bailey,SchoolSupervisor,,
+prof.cooper@university.edu,Prof. Cooper,SchoolSupervisor,,
+dr.rivera@university.edu,Dr. Rivera,SchoolSupervisor,,
+admin.two@university.edu,Admin Two,Admin,,
+,,,,
