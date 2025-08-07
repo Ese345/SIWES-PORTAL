@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Portfolio Design System - Modern & Professional */
+
+@layer base {
+  :root {
+    /* Main Background & Text */
+    --background: 240 10% 4%;
+    --foreground: 240 5% 96%;
+
+    /* Card System */
+    --card: 240 8% 8%;
+    --card-foreground: 240 5% 94%;
+
+    /* Interactive Elements */
+    --popover: 240 8% 8%;
+    --popover-foreground: 240 5% 94%;
+
+    /* Brand Colors - Deep Purple Theme */
+    --primary: 250 85% 60%;
+    --primary-foreground: 240 10% 4%;
+    --primary-glow: 250 85% 70%;
+
+    /* Secondary Accent */
+    --secondary: 240 8% 15%;
+    --secondary-foreground: 240 5% 90%;
+
+    /* Muted Elements */
+    --muted: 240 8% 12%;
+    --muted-foreground: 240 5% 65%;
+
+    /* Accent Highlights */
+    --accent: 280 100% 70%;
+    --accent-foreground: 240 10% 4%;
+
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 240 5% 96%;
+
+    /* Borders & Inputs */
+    --border: 240 8% 18%;
+    --input: 240 8% 18%;
+    --ring: 250 85% 60%;
+
+    /* Design Tokens */
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--muted)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+
+    /* Shadows */
+    --shadow-elegant: 0 20px 50px -12px hsl(var(--primary) / 0.25);
+    --shadow-card: 0 8px 30px -8px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+
+    /* Animation Easing */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Hero gradient text effect */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  /* Glowing button effect */
+  .glow-button {
+    @apply relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary before:to-accent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-20;
+    box-shadow: var(--shadow-elegant);
+  }
+
+  /* Card hover animations */
+  .card-hover {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-card)];
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Text shimmer effect */
+  .text-shimmer {
+    @apply bg-gradient-to-r from-foreground via-primary to-foreground bg-[length:200%_100%] bg-clip-text text-transparent;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  /* Custom animations keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Animation utilities */
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s var(--ease-smooth) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s var(--ease-spring) forwards;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+  }
+}
